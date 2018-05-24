@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "package": "electron-packager ./  helloworld --platform=win32 --arch=x64 --out=./app  --app-version 1.0.0 --electron-version=2.0.1 --overwrite --icon=./favicon.ico --asar"
+    "package": "electron-packager ./ stepByStep --platform=win32 --arch=x64 --out=./app  --app-version 1.0.0 --electron-version=2.0.1 --overwrite --icon=./favicon.ico --asar"
   },
   "repository": {
     "type": "git",
