@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "package": "electron-packager ./  helloworld --platform=win32 --arch=x64 --out=./app  --app-version 1.0.0 --electron-version=2.0.1 --overwrite --icon=./favicon.ico --asar"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   },
   "homepage": "https://github.com/travelclover/electron-demo#readme",
   "devDependencies": {
-    "electron": "^2.0.1"
+    "electron": "^2.0.1",
+    "electron-packager": "^12.1.0"
   }
 }
