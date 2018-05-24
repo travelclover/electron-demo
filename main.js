@@ -1,6 +1,10 @@
 // const electron = require('electron');
 
 const { app, BrowserWindow } = require('electron')
+const electron = require('electron')
+const Menu = electron.Menu
+const MenuItem = electron.MenuItem
+const ipc = electron.ipcMain
 const path = require('path')
 const url = require('url')
 
@@ -10,11 +14,18 @@ let win
 
 function createWindow() {
   // 创建浏览器窗口。
-  win = new BrowserWindow({ width: 800, height: 600 })
+  win = new BrowserWindow({
+    width: 920,
+    height: 770,
+    // frame: false,
+  })
+
+  // 去掉toolbars
+  win.setMenu(null)
 
   // 然后加载应用的 index.html。
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, 'src', 'index.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -55,3 +66,19 @@ app.on('activate', () => {
 
   // 在这个文件中，你可以续写应用剩下主进程代码。
   // 也可以拆分成几个文件，然后用 require 导入。
+
+  // 右键菜单
+const menu = new Menu()
+menu.append(new MenuItem({ label: '重载', 'role': 'reload' }))
+menu.append(new MenuItem({ type: 'separator' })) // 分割线
+
+app.on('browser-window-created', function (event, win) {
+  win.webContents.on('context-menu', function (e, params) {
+    menu.popup(win, params.x, params.y)
+  })
+})
+
+ipc.on('show-context-menu', function (event) {
+  const win = BrowserWindow.fromWebContents(event.sender)
+  menu.popup(win)
+})
